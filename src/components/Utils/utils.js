@@ -1,0 +1,1 @@
+export const deleteProperty = ({ [key]: _, ...newObj }, key) => newObj
