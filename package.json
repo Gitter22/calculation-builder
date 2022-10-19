@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@data-driven-forms/ant-component-mapper": "^3.18.11",
+    "@data-driven-forms/react-form-renderer": "^3.18.11",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",

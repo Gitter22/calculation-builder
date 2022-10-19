@@ -28,7 +28,7 @@ const InputList = () => (
         renderItem={(item) => (
             <List.Item>
                 <List.Item.Meta
-                    title={<Tag color='green'>{item.title}</Tag>}
+                    title={<Tag color='cyan'>{item.title} = {item.value}</Tag>}
                     description={item.description}
                 />
             </List.Item>
