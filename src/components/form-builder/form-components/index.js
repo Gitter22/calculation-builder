@@ -1,7 +1,7 @@
 import React from 'react'
 import { List } from 'antd';
 import * as schemas from './schemas'
-import { FB_ACTIONS } from '..';
+import { FB_ACTIONS } from '../formschemaReducer'
 
 export const componentTypes = [{
     label: 'Short Answer',
@@ -27,8 +27,8 @@ export const componentTypes = [{
 
 function FormComponents({ dispatch }) {
 
-    function handleClick(componentSchema) {
-        dispatch({ type: FB_ACTIONS.COMPONENT_ADDED, payload: componentSchema })
+    function handleClick(fieldSchema) {
+        dispatch({ type: FB_ACTIONS.FIELD_ADDED, field: fieldSchema })
     }
 
     return (
