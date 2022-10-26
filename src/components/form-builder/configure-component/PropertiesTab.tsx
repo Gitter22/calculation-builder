@@ -1,25 +1,29 @@
 import React from 'react'
 import { Button, Input, Space } from 'antd'
-import { FB_ACTIONS } from '../formschemaReducer'
+import { FB_Actions } from '../formschemaReducer'
 import OptionAdder from './OptionAdder'
+import { Field } from '@data-driven-forms/react-form-renderer'
 
-function PropertiesTab({ field, dispatch }) {
-    console.log("🚀 ~ file: PropertiesTab.js ~ line 4 ~ PropertiesTab ~ schema", field)
+type PropertiesTabProps = {
+    field: Field,
+    dispatch: React.Dispatch<FB_Actions>
+}
 
-    function handleLabelChange(e) {
+function PropertiesTab({ field, dispatch }: PropertiesTabProps) {
+
+
+    function handleLabelChange(e: React.ChangeEvent<HTMLInputElement>) {
         console.log(e.target.value)
-        dispatch({ type: FB_ACTIONS.LABEL_CHANGED, label: e.target.value })
+        dispatch({ type: 'label_changed', label: e.target.value })
     }
 
-    function handleKeyChange(e) {
+    function handleKeyChange(e: React.ChangeEvent<HTMLInputElement>) {
         console.log(e.target.value)
-        dispatch({ type: FB_ACTIONS.NAME_CHANGED, name: e.target.value })
-
+        dispatch({ type: 'name_changed', name: e.target.value })
     }
-
 
     function handleRemove() {
-        dispatch({ type: FB_ACTIONS.FIELD_DELETED })
+        dispatch({ type: 'field_deleted' })
     }
 
     function handleOptionsChange() {

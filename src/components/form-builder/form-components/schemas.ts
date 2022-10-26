@@ -1,5 +1,6 @@
 import componentTypes from '@data-driven-forms/react-form-renderer/component-types';
 
+
 export const shortAnswer = {
     component: componentTypes.TEXT_FIELD,
     name: "text-field-1666082928259",

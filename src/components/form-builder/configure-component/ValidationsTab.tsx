@@ -1,14 +1,21 @@
-import { Checkbox, Space } from 'antd'
 import React from 'react'
-import { FB_ACTIONS } from '../formschemaReducer'
+import { Field } from '@data-driven-forms/react-form-renderer'
+import { Checkbox, Space } from 'antd'
+import { FB_Actions } from '../formschemaReducer'
+import { CheckboxChangeEvent } from 'antd/es/checkbox'
 
-function ValidationsTab({ field, dispatch }) {
+type ValidationsTabProps = {
+    field: Field,
+    dispatch: React.Dispatch<FB_Actions>
+}
 
-    function handleIsRequired(e) {
+
+function ValidationsTab({ field, dispatch }: ValidationsTabProps) {
+
+    function handleIsRequired(e: CheckboxChangeEvent) {
         console.log(e.target.checked)
-        dispatch({ type: FB_ACTIONS.ISREQUIRED_CHANGED, isRequired: e.target.checked })
+        dispatch({ type: 'isRequired_changed', isRequired: e.target.checked })
     }
-
 
     return (
         <div style={{ padding: "5px" }}>

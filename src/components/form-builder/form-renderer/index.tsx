@@ -1,26 +1,38 @@
 import React from 'react'
-import { FB_ACTIONS } from '../formschemaReducer'
+import { FB_Actions, FormSchema } from '../formschemaReducer';
+import { FormTemplateRenderProps } from '@data-driven-forms/react-form-renderer';
 
 import FormRenderer from '@data-driven-forms/react-form-renderer/form-renderer';
 import { componentMapper } from '@data-driven-forms/ant-component-mapper';
 import { useFormApi } from '@data-driven-forms/react-form-renderer';
 
-const FormTemplate = ({ schema, formFields }) => {
+
+
+interface FormPreviewProps {
+    schema: FormSchema,
+    dispatch: React.Dispatch<FB_Actions>
+}
+
+
+const FormTemplate = ({ schema, formFields }: FormTemplateRenderProps) => {
     const { handleSubmit } = useFormApi();
 
     return (
-        <form onSubmit={handleSubmit}>
-            {/* {schema.title} */}
-            {formFields}
-            {/* <button type="submit">Submit</button> */}
-        </form>
+        <>
+            <form onSubmit={handleSubmit}>
+                {formFields}
+                <button type="submit">Submit</button>
+            </form>
+        </>
     )
 }
 
-function FormPreview({ schema, dispatch }) {
 
-    function handleSelect(index) {
-        dispatch({ type: FB_ACTIONS.SET_SELECTED, index })
+
+function FormPreview({ schema, dispatch }: FormPreviewProps) {
+
+    function handleSelect(index: number) {
+        dispatch({ type: 'set_selected', index })
     }
 
 

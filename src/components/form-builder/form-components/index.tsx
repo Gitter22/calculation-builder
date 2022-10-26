@@ -1,7 +1,12 @@
 import React from 'react'
 import { List } from 'antd';
 import * as schemas from './schemas'
-import { FB_ACTIONS } from '../formschemaReducer'
+import { FB_Actions } from '../formschemaReducer'
+import { Field } from '@data-driven-forms/react-form-renderer';
+
+interface FormComponentsProps {
+    dispatch: React.Dispatch<FB_Actions>
+}
 
 export const componentTypes = [{
     label: 'Short Answer',
@@ -25,10 +30,10 @@ export const componentTypes = [{
 
 
 
-function FormComponents({ dispatch }) {
+function FormComponents({ dispatch }: FormComponentsProps) {
 
-    function handleClick(fieldSchema) {
-        dispatch({ type: FB_ACTIONS.FIELD_ADDED, field: fieldSchema })
+    function handleClick(fieldSchema: Field) {
+        dispatch({ type: 'field_added', field: fieldSchema })
     }
 
     return (

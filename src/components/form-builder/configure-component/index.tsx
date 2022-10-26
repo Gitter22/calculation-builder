@@ -2,8 +2,16 @@ import React from 'react'
 import { Tabs } from 'antd'
 import PropertiesTab from './PropertiesTab'
 import ValidationsTab from './ValidationsTab'
+import { FB_Actions } from '../formschemaReducer'
+import { Field } from '@data-driven-forms/react-form-renderer'
 
-function ConfigureComponent({ dispatch, field }) {
+type ConfigureComponentProps = {
+    dispatch: React.Dispatch<FB_Actions>,
+    field: Field
+}
+
+function ConfigureComponent({ dispatch, field }: ConfigureComponentProps) {
+
     console.log("🚀 ~ file: index.js ~ line 7 ~ ConfigureComponent ~ schema", field)
     return (
         <div>

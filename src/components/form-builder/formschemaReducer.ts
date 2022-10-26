@@ -1,42 +1,50 @@
-export const FB_ACTIONS = {
-    FIELD_ADDED: 'FIELD_ADDED',
-    FIELD_DELETED: 'FIELD_DELETED',
-    SET_SELECTED: 'SET_SELECTED',
-    LABEL_CHANGED: 'LABEL_CHANGED',
-    NAME_CHANGED: 'NAME_CHANGED',
-    OPTIONS_CHANGED: 'OPTIONS_CHANGED',
-    ISREQUIRED_CHANGED: 'ISREQUIRED_CHANGED'
+import { Field } from "@data-driven-forms/react-form-renderer"
+
+
+export type FB_Actions =
+    { type: 'field_added'; field: any }
+    | { type: 'field_deleted' }
+    | { type: 'set_selected', index: number }
+    | { type: 'label_changed', label: string }
+    | { type: 'name_changed', name: string }
+    | { type: 'options_changed', options: string[] }
+    | { type: 'isRequired_changed', isRequired: boolean }
+
+export interface FormSchema {
+    title: string,
+    fields: Field[],
+    selected: number | undefined
 }
 
 export const initialSchema = {
     title: 'Find my Subsidies',
     fields: [],
-    selected: undefined
+    selected: 0
 }
 
-export function formSchemaReducer(state, action) {
+export function formSchemaReducer(state: FormSchema, action: FB_Actions) {
     switch (action.type) {
 
-        case FB_ACTIONS.FIELD_ADDED: {
+        case 'field_added': {
             return {
                 ...state,
                 fields: [...state.fields, action.field]
             }
         }
-        case FB_ACTIONS.FIELD_DELETED: {
+        case 'field_deleted': {
             const updatedFields = state.fields.filter((field, index) => index !== state.selected)
             return {
                 ...state,
                 fields: updatedFields
             }
         }
-        case FB_ACTIONS.SET_SELECTED: {
+        case 'set_selected': {
             return {
                 ...state,
                 selected: action.index
             }
         }
-        case FB_ACTIONS.LABEL_CHANGED: {
+        case 'label_changed': {
             const updatedFields = state.fields.map((field, index) => {
                 if (state.selected === index) {
                     return { ...field, label: action.label }
@@ -49,7 +57,7 @@ export function formSchemaReducer(state, action) {
                 fields: updatedFields
             }
         }
-        case FB_ACTIONS.NAME_CHANGED: {
+        case 'name_changed': {
             const updatedFields = state.fields.map((field, index) => {
                 if (state.selected === index) {
                     return { ...field, name: action.name }
@@ -62,7 +70,7 @@ export function formSchemaReducer(state, action) {
                 fields: updatedFields
             }
         }
-        case FB_ACTIONS.ISREQUIRED_CHANGED: {
+        case 'isRequired_changed': {
             const updatedFields = state.fields.map((field, index) => {
                 if (state.selected === index) {
                     return { ...field, isRequired: action.isRequired }
