@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Button, Input, Space } from 'antd'
 import { FB_Actions } from '../formschemaReducer'
 import OptionAdder from './OptionAdder'
 import { Field } from '@data-driven-forms/react-form-renderer'
+import { token } from '../../Utils/token'
 
 type PropertiesTabProps = {
     field: Field,
@@ -11,15 +12,24 @@ type PropertiesTabProps = {
 
 function PropertiesTab({ field, dispatch }: PropertiesTabProps) {
 
+    const [tokenError, setTokenError] = useState('')
+    const [name, setName] = useState('')
 
     function handleLabelChange(e: React.ChangeEvent<HTMLInputElement>) {
-        console.log(e.target.value)
         dispatch({ type: 'label_changed', label: e.target.value })
     }
-
     function handleKeyChange(e: React.ChangeEvent<HTMLInputElement>) {
-        console.log(e.target.value)
-        dispatch({ type: 'name_changed', name: e.target.value })
+        setTokenError('')
+        try {
+            const name = token.generate(e.target.value)
+            setName(name)
+            console.log("🚀 ~ file: PropertiesTab.tsx ~ line 26 ~ handleKeyChange ~ name", name)
+            dispatch({ type: 'name_changed', name: e.target.value })
+        } catch (err: any) {
+            setTokenError(err?.message)
+            dispatch({ type: 'name_changed', name: e.target.value })
+            console.log(err)
+        }
     }
 
     function handleRemove() {
@@ -46,9 +56,12 @@ function PropertiesTab({ field, dispatch }: PropertiesTabProps) {
                     <Input
                         placeholder='Enter question key...'
                         onChange={handleKeyChange}
-                        value={field?.name || 'blah'}
+                        value={field?.name || ''}
                     />
                 </label>
+                <span style={{ color: 'red' }}>{tokenError}</span>
+                <span style={{ color: 'blue' }}>{name}</span>
+
                 <div>
                     <OptionAdder options={field?.options} onChange={handleOptionsChange} />
                 </div>

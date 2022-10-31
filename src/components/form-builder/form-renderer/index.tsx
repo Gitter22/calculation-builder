@@ -3,8 +3,9 @@ import { FB_Actions, FormSchema } from '../formschemaReducer';
 import { FormTemplateRenderProps } from '@data-driven-forms/react-form-renderer';
 
 import FormRenderer from '@data-driven-forms/react-form-renderer/form-renderer';
-import { componentMapper } from '@data-driven-forms/ant-component-mapper';
-import { useFormApi } from '@data-driven-forms/react-form-renderer';
+import { componentTypes } from '@data-driven-forms/react-form-renderer';
+import { Select, Checkbox, Radio, ComponentMapper } from '@data-driven-forms/ant-component-mapper';
+import FormTemplate from '@data-driven-forms/ant-component-mapper/form-template'
 
 
 
@@ -13,23 +14,19 @@ interface FormPreviewProps {
     dispatch: React.Dispatch<FB_Actions>
 }
 
-
-const FormTemplate = ({ schema, formFields }: FormTemplateRenderProps) => {
-    const { handleSubmit } = useFormApi();
-
-    return (
-        <>
-            <form onSubmit={handleSubmit}>
-                {formFields}
-                <button type="submit">Submit</button>
-            </form>
-        </>
-    )
+const componentMapper: ComponentMapper = {
+    // [componentTypes.TEXT_FIELD]: TextField,
+    [componentTypes.CHECKBOX]: Checkbox,
+    [componentTypes.RADIO]: Radio,
+    [componentTypes.SELECT]: Select
 }
+
+const BasicFormTemplate = (props: FormTemplateRenderProps) => <FormTemplate {...props} />
 
 
 
 function FormPreview({ schema, dispatch }: FormPreviewProps) {
+    console.log("🚀 ~ file: index.tsx ~ line 29 ~ FormPreview ~ schema", schema)
 
     function handleSelect(index: number) {
         dispatch({ type: 'set_selected', index })
@@ -50,7 +47,7 @@ function FormPreview({ schema, dispatch }: FormPreviewProps) {
                     onClick={() => handleSelect(index)}
                 >
                     <FormRenderer
-                        FormTemplate={FormTemplate}
+                        FormTemplate={BasicFormTemplate}
                         componentMapper={componentMapper}
                         schema={{ fields: [field] }}
                         onSubmit={console.log}

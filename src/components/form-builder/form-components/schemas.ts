@@ -3,7 +3,7 @@ import componentTypes from '@data-driven-forms/react-form-renderer/component-typ
 
 export const shortAnswer = {
     component: componentTypes.TEXT_FIELD,
-    name: "text-field-1666082928259",
+    name: "text",
     label: 'Your question....',
     condition: {
         "and": []
@@ -45,7 +45,7 @@ export const dropDown = {
 export const multipleChoice = {
     component: "radio",
     label: '',
-    name: "checkbox",
+    name: "radio",
     options: [
         {
             "label": "Dog",
