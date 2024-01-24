@@ -10,9 +10,9 @@ function App() {
 
   return (
     <div style={{ margin: "10px", padding: "10px" }}>
-      {/* <Calculator /> */}
+      <Calculator />
       {/* <InputList /> */}
-      <FormBuilder />
+      {/* <FormBuilder /> */}
     </div>
   );
 }
